@@ -1,4 +1,6 @@
 #include <gtest/gtest.h>
+#include <math.h>
+#include <stdint.h>
 #include "fff.h"
 #include "adc.h"
 #include "airSpeed.h"
@@ -8,12 +10,13 @@
 
 #define DUMMY_FLOAT_VALUE	12.7f
 
-
-// the correct value passed by getValue is transmitted to the user.
+#define MAX_ADC_VALUE 0xFFF
 
 /***********************************************************************************************************************
  * Mocks
  **********************************************************************************************************************/
+
+// every function I mock is here. In short, doing the following for a specific function makes the code under test call a fake object rather than it's real implementation, which allows you to test things like number of calls, order of calls, parameters... and force specific return arguments. If a function the code under test calls is not in this list, it's real implementation will be called, which is sometimes ok for functions that just do math on things but a problem with functions that try to talk to hardware.
 
 FAKE_VOID_FUNC(MX_ADC3_Init);
 FAKE_VOID_FUNC(HAL_ADC_MspInit, ADC_HandleTypeDef * );
@@ -36,24 +39,23 @@ class ADC_Init : public ::testing::Test
 {
 	public:
 
-		virtual void SetUp()
+		virtual void SetUp() // this function is run right before every text associated to the fixture "ADC_INIT" is run.
 		{
 			RESET_FAKE(MX_ADC3_Init);
 			RESET_FAKE(HAL_ADC_MspInit);
 		}
 
-		virtual void TearDown()
+		virtual void TearDown() // this function is run right after every test associated to the fixture "ADC_INIT" is run.
 		{
 			FFF_RESET_HISTORY();
 		}
-
 };
 
-class ADC_GetValue : public ::testing::Test
+class GetValue : public ::testing::Test
 {
 	public:
 
-		virtual void SetUp()
+		virtual void SetUp()// this function is run right before every text associated to the fixture "GetValue" is run.
 		{
 			RESET_FAKE(HAL_ADC_Start);
 			RESET_FAKE(HAL_ADC_PollForConversion);
@@ -61,11 +63,10 @@ class ADC_GetValue : public ::testing::Test
 			RESET_FAKE(HAL_ADC_Stop);
 		}
 
-		virtual void TearDown()
+		virtual void TearDown()// this function is run right after every test associated to the fixture "GetValue" is run.
 		{
 			FFF_RESET_HISTORY();
 		}
-
 };
 
 /***********************************************************************************************************************
@@ -106,7 +107,7 @@ TEST_F(ADC_Init, InitCallsMspInitWithAppropriateArg) {
 }
 
 
-TEST_F(ADC_GetValue, AllconversionFuncsCalledInCorrectOrder) { 
+TEST_F(GetValue, AllconversionFuncsCalledInCorrectOrder) { 
 
    	/***********************SETUP***********************/
 
@@ -125,7 +126,7 @@ TEST_F(ADC_GetValue, AllconversionFuncsCalledInCorrectOrder) {
     ASSERT_EQ(fff.call_history[3], (void *)HAL_ADC_Stop);
 }
 
-TEST_F(ADC_GetValue, AllconversionFuncsCalledWithCorrectParams) { 
+TEST_F(GetValue, AllconversionFuncsCalledWithCorrectParams) { 
 
    	/***********************SETUP***********************/
 
@@ -145,29 +146,7 @@ TEST_F(ADC_GetValue, AllconversionFuncsCalledWithCorrectParams) {
 	ASSERT_TRUE(memcmp(HAL_ADC_Stop_fake.arg0_val, &hadc3, sizeof(ADC_HandleTypeDef)) == 0);
 }
 
-TEST_F(ADC_GetValue, IfAllConversionFuncsReturnHal_OKGetAirspeedShouldReturnSucceeded) { 
-
-   	/***********************SETUP***********************/
-
-	float dummyAirspeed = DUMMY_FLOAT_VALUE;
-
-	/********************DEPENDENCIES*******************/
-
-	HAL_ADC_Start_fake.return_val = HAL_OK;
-	HAL_ADC_PollForConversion_fake.return_val = HAL_OK;
-	HAL_ADC_Stop_fake.return_val = HAL_OK;
-
-	/********************STEPTHROUGH********************/
-
-	airSpeedState_t state = airSpeed_GetAirSpeed(&dummyAirspeed);
-
-	/**********************ASSERTS**********************/
-
-	ASSERT_EQ(state, AIR_SPEED_SUCCEEDED);
-
-}
-
-TEST_F(ADC_GetValue, IfAnyConversionFuncsDoNotReturnHal_OKGetAirspeedShouldReturnFailed) { 
+TEST_F(GetValue, IfAnyConversionFuncsDoNotReturnHal_OKGetAirspeedShouldReturnFailed) { 
 
    	/***********************SETUP***********************/
 
@@ -187,5 +166,124 @@ TEST_F(ADC_GetValue, IfAnyConversionFuncsDoNotReturnHal_OKGetAirspeedShouldRetur
 	/**********************ASSERTS**********************/
 
 	ASSERT_EQ(state, AIR_SPEED_FAILED);
+}
 
+TEST_F(GetValue, MaxAirSpeedIsAssociatedWithMaxAdcValue) { 
+
+   	/***********************SETUP***********************/
+
+   	float allowableErrorBound = 0.5f;	// it is unreasonable to expect that a floating point calculation will returrn exactly the right value, so we give it some error bound.
+
+	float returnedAirspeed;
+	uint32_t adcValue = MAX_ADC_VALUE;
+
+	float expectedDiffPressure = 2500.0f; // Pascals (Datasheet value)
+	float expectedAirspeed =  sqrtf(2.0f * expectedDiffPressure / AIR_DENSITY_M_PER_KG_CUBED);
+
+	/********************DEPENDENCIES*******************/
+
+	HAL_ADC_Start_fake.return_val = HAL_OK;
+	HAL_ADC_PollForConversion_fake.return_val = HAL_OK;
+	HAL_ADC_GetValue_fake.return_val = adcValue;
+	HAL_ADC_Stop_fake.return_val = HAL_OK;
+
+	/********************STEPTHROUGH********************/
+
+	airSpeedState_t state = airSpeed_GetAirSpeed(&returnedAirspeed);
+
+	/**********************ASSERTS**********************/
+
+	ASSERT_EQ(state, AIR_SPEED_SUCCEEDED);
+
+	ASSERT_NEAR(returnedAirspeed, expectedAirspeed, allowableErrorBound);
+}
+
+TEST_F(GetValue, ZeroAirSpeedIsAssociatedWithCorrespondingAdcValue) { 
+
+   	/***********************SETUP***********************/
+
+   	float allowableErrorBound = 0.5f;	// it is unreasonable to expect that a floating point calculation will returrn exactly the right value, so we give it some error bound.
+
+	float returnedAirspeed;
+	uint32_t adcValue = 0.5 * MAX_ADC_VALUE;
+
+	float expectedAirspeed =  0.0f;
+
+	/********************DEPENDENCIES*******************/
+
+	HAL_ADC_Start_fake.return_val = HAL_OK;
+	HAL_ADC_PollForConversion_fake.return_val = HAL_OK;
+	HAL_ADC_GetValue_fake.return_val = adcValue;
+	HAL_ADC_Stop_fake.return_val = HAL_OK;
+
+	/********************STEPTHROUGH********************/
+
+	airSpeedState_t state = airSpeed_GetAirSpeed(&returnedAirspeed);
+
+	/**********************ASSERTS**********************/
+
+	ASSERT_EQ(state, AIR_SPEED_SUCCEEDED);
+
+	ASSERT_NEAR(returnedAirspeed, expectedAirspeed, allowableErrorBound);
+}
+
+TEST_F(GetValue, ZeroAirSpeedIsAssociatedWithSlightlyBelowCorrectAdcValue) { 
+
+
+	// the voltage read from the adc has some error. If the aircraft is not moving, but the adc receives a voltage corresponding to slightly below 0 airspeed, the software must know to correct it to 0 (and not give a negative airspeed)
+
+   	/***********************SETUP***********************/
+
+   	float allowableErrorBound = 0.5f;	// it is unreasonable to expect that a floating point calculation will returrn exactly the right value, so we give it some error bound.
+
+	float returnedAirspeed;
+
+	uint32_t reasonableSensorError = 0.05 * MAX_ADC_VALUE;
+	uint32_t adcValue = (0.5 * MAX_ADC_VALUE) - reasonableSensorError;
+
+	float expectedAirspeed =  0.0f;
+
+	/********************DEPENDENCIES*******************/
+
+	HAL_ADC_Start_fake.return_val = HAL_OK;
+	HAL_ADC_PollForConversion_fake.return_val = HAL_OK;
+	HAL_ADC_GetValue_fake.return_val = adcValue;
+	HAL_ADC_Stop_fake.return_val = HAL_OK;
+
+	/********************STEPTHROUGH********************/
+
+	airSpeedState_t state = airSpeed_GetAirSpeed(&returnedAirspeed);
+
+	/**********************ASSERTS**********************/
+
+	ASSERT_EQ(state, AIR_SPEED_SUCCEEDED);
+
+	ASSERT_NEAR(returnedAirspeed, expectedAirspeed, allowableErrorBound);
+}
+
+TEST_F(GetValue, VeryIncorrectAdcValueCausesModuleToReturnFailed) { 
+
+	// the sensor should never return a voltage much less than half of maximum, thee readings corresponding to maximum differential pressure, which is impossible for our application. If it does (with a value larger than the acceptable error allowed in the previous test), something is broken, and the reading should not be trusted. The module should return failed rather than a negative or 0 airspeed.
+
+   	/***********************SETUP***********************/
+
+	float dummyAirspeed;
+
+	uint32_t unreasonableSensorError = 0.1 * MAX_ADC_VALUE;
+	uint32_t adcValue = (0.5 * MAX_ADC_VALUE) - unreasonableSensorError;
+
+	/********************DEPENDENCIES*******************/
+
+	HAL_ADC_Start_fake.return_val = HAL_OK;
+	HAL_ADC_PollForConversion_fake.return_val = HAL_OK;
+	HAL_ADC_GetValue_fake.return_val = adcValue;
+	HAL_ADC_Stop_fake.return_val = HAL_OK;
+
+	/********************STEPTHROUGH********************/
+
+	airSpeedState_t state = airSpeed_GetAirSpeed(&dummyAirspeed);
+
+	/**********************ASSERTS**********************/
+
+	ASSERT_EQ(state, AIR_SPEED_FAILED);
 }

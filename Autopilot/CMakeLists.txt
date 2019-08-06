@@ -129,9 +129,9 @@ file(GLOB_RECURSE UNIT_TEST_SOURCES UnitTestSrc/*.cpp )
 
 
 # Our own source files and tests will need to be held to the highest standards
-set_property(SOURCE ${C_SOURCES} PROPERTY COMPILE_FLAGS "-Wall -Wextra")
-set_property(SOURCE ${CXX_SOURCES} PROPERTY COMPILE_FLAGS "-Wall -Wextra")
-set_property(SOURCE ${UNIT_TEST_SOURCES} PROPERTY COMPILE_FLAGS "-Wall -Wextra")
+set_property(SOURCE ${C_SOURCES} PROPERTY COMPILE_FLAGS "-Wall -Wextra -g")
+set_property(SOURCE ${CXX_SOURCES} PROPERTY COMPILE_FLAGS "-Wall -Wextra -g")
+set_property(SOURCE ${UNIT_TEST_SOURCES} PROPERTY COMPILE_FLAGS "-Wall -Wextra -g")
 
 # Locate GTest
 find_package(GTest REQUIRED)

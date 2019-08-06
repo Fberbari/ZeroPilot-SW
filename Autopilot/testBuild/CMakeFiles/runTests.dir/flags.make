@@ -15,23 +15,23 @@ CXX_DEFINES = -DARM_MATH_CM7 -DSTM32F765xG -DSTM32F765xx -DSTM32F7xx -DUSE_HAL_L
 
 CXX_INCLUDES = -isystem /mnt/c/Users/Antho/repos/ZeroPilot-SW/Autopilot/Inc -isystem /mnt/c/Users/Antho/repos/ZeroPilot-SW/Autopilot/Libraries/STM32F7xx_HAL_Driver/Inc -isystem /mnt/c/Users/Antho/repos/ZeroPilot-SW/Autopilot/../Common/Inc -isystem /mnt/c/Users/Antho/repos/ZeroPilot-SW/Autopilot/Libraries/CMSIS/Include -isystem /mnt/c/Users/Antho/repos/ZeroPilot-SW/Autopilot/Libraries/CMSIS/Device/ST/STM32F7xx/Include -isystem /mnt/c/Users/Antho/repos/ZeroPilot-SW/Autopilot/UnitTestSrc/UnitTestLibraries 
 
-# Custom flags: CMakeFiles/runTests.dir/Src/airSpeed.c.o_FLAGS = -Wall -Wextra
+# Custom flags: CMakeFiles/runTests.dir/Src/airSpeed.c.o_FLAGS = -Wall -Wextra -g
 
-# Custom flags: CMakeFiles/runTests.dir/Src/altimeter.c.o_FLAGS = -Wall -Wextra
+# Custom flags: CMakeFiles/runTests.dir/Src/altimeter.c.o_FLAGS = -Wall -Wextra -g
 
-# Custom flags: CMakeFiles/runTests.dir/Src/ByteQueue.c.o_FLAGS = -Wall -Wextra
+# Custom flags: CMakeFiles/runTests.dir/Src/ByteQueue.c.o_FLAGS = -Wall -Wextra -g
 
-# Custom flags: CMakeFiles/runTests.dir/Src/mpu9255.c.o_FLAGS = -Wall -Wextra
+# Custom flags: CMakeFiles/runTests.dir/Src/mpu9255.c.o_FLAGS = -Wall -Wextra -g
 
-# Custom flags: CMakeFiles/runTests.dir/Src/NMEAParser.c.o_FLAGS = -Wall -Wextra
+# Custom flags: CMakeFiles/runTests.dir/Src/NMEAParser.c.o_FLAGS = -Wall -Wextra -g
 
-# Custom flags: CMakeFiles/runTests.dir/Src/PID.cpp.o_FLAGS = -Wall -Wextra
+# Custom flags: CMakeFiles/runTests.dir/Src/PID.cpp.o_FLAGS = -Wall -Wextra -g
 
-# Custom flags: CMakeFiles/runTests.dir/UnitTestSrc/testMain.cpp.o_FLAGS = -Wall -Wextra
+# Custom flags: CMakeFiles/runTests.dir/UnitTestSrc/testMain.cpp.o_FLAGS = -Wall -Wextra -g
 
-# Custom flags: CMakeFiles/runTests.dir/UnitTestSrc/Test_Airspeed.cpp.o_FLAGS = -Wall -Wextra
+# Custom flags: CMakeFiles/runTests.dir/UnitTestSrc/Test_Airspeed.cpp.o_FLAGS = -Wall -Wextra -g
 
-# Custom flags: CMakeFiles/runTests.dir/UnitTestSrc/Test_Altimeter.cpp.o_FLAGS = -Wall -Wextra
+# Custom flags: CMakeFiles/runTests.dir/UnitTestSrc/Test_Altimeter.cpp.o_FLAGS = -Wall -Wextra -g
 
-# Custom flags: CMakeFiles/runTests.dir/UnitTestSrc/Test_mpu9255.cpp.o_FLAGS = -Wall -Wextra
+# Custom flags: CMakeFiles/runTests.dir/UnitTestSrc/Test_mpu9255.cpp.o_FLAGS = -Wall -Wextra -g
 

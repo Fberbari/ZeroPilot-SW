@@ -45,10 +45,11 @@ while getopts "c,t,h,f,r,T" opt; do
             printf "%s\n" "Usage: $0 [OPTIONS]"\
                 "Script to build the WARG Autopilot project"\
                 "    -f                 - flashes the Autopilot after building"\
-                "    -c                 - removes previous build files before building"\
+                "    -c                 - removes previous build files (both unit test and target build) before building"\
                 "    -h                 - outputs this message"\
                 "    -t                 - runs tests after building if build is successful"\
-                "    -r                 - Sets the build type to release"
+                "    -r                 - Sets the build type to release"\
+                "    -T                 - Runs all unit tests"
             exit 1
         ;;
     esac

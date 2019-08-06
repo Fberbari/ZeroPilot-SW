@@ -14,6 +14,8 @@ float getAltitude(void);
 
 float getTemperature(void);
 
+float altimeter_GetPressureKpa(void); // Todo: Added this prototype because it is required by the airspeed module
+
 #ifdef __cplusplus
 }
 #endif

@@ -16,10 +16,11 @@ typedef enum airSpeedState
 
 }airSpeedState_t;
 
+#define AIR_DENSITY_M_PER_KG_CUBED 1.2f	// TODO density was taken to be a constant value. For max accuracy, we could use temperature and pressure readings to calculate it.
+
 /***********************************************************************************************************************
  * Prototypes
  **********************************************************************************************************************/
-
 
 /**
 * Should be called exactly once before attempting to do anything with this module.
@@ -28,7 +29,7 @@ typedef enum airSpeedState
 void airSpeed_Init(void);
 
 /**
-* Gives the real time airspeed of the aircraft in m/s at the time of calling.
+* Gives the airspeed of the aircraft in m/s at the time of calling.
 * In case of a return value of failed, the result stored in airSpeed will be meaningless.
 *
 *@param[out]		airSpeed		airspeed in m/s
