@@ -17,8 +17,8 @@ addons:
     - ninja-build
 
 env:
-  - TARGET=Autopilot CXX_FLAGS="-std=c++1"
-  - TARGET=Safety CXX_FLAGS="-std=c++1"
+  - TARGET=Autopilot CXX_FLAGS="-std=c++11"
+  - TARGET=Safety CXX_FLAGS="-std=c++11"
 
 # install cmake and google test for both linux and osx. TODO: these should be cached
 before_install: >
