@@ -5,36 +5,32 @@ sudo: false
 
 
 matrix:
+
   include:
 
-    - os: linux
+
+    - os: linux # run unit tests on linux
       compiler: gcc
-      env: CXX_FLAGS="-std=c++11" TARGET=Autopilot
+      env: CXX_FLAGS="-std=c++11"
       addons:
         apt:
           packages:
           - ninja-build
           - cmake
-      cache:
-        directories:
-          - $HOME/gcc-arm-none-eabi-7-2017-q4-major
-      before_install:
+      install: # install google test
         - sudo apt-get install libgtest-dev
         - cd /usr/src/gtest
         - sudo cmake CMakeLists.txt
         - sudo make
         - sudo cp *.a /usr/lib
-        - cd $TRAVIS_BUILD_DIR;
-      install:
-        - export GCC_DIR=$HOME/gcc-arm-none-eabi-7-2017-q4-major
-        - export GCC_ARCHIVE=$HOME/gcc-arm-none-eabi-7-2017-q4-major-linux.tar.bz2
-        - export GCC_URL=https://developer.arm.com/-/media/Files/downloads/gnu-rm/7-2017q4/gcc-arm-none-eabi-7-2017-q4-major-linux.tar.bz2
-        - if [ ! -e $GCC_DIR/bin/arm-none-eabi-g++ ]; then wget $GCC_URL -O $GCC_ARCHIVE; tar xfj $GCC_ARCHIVE -C $HOME; fi
-        - export PATH=$GCC_DIR/bin:$PATH
+    script:
+      - cd $TRAVIS_BUILD_DIR/Autopilot
+      - ./Tools/build.bash -c -T
 
-    - os: linux
+
+    - os: linux # check if we can build for the target, from linux
       compiler: gcc
-      env: CXX_FLAGS="-std=c++11" TARGET=Safety
+      env: CXX_FLAGS="-std=c++11"
       addons:
         apt:
           packages:
@@ -49,14 +45,17 @@ matrix:
         - export GCC_URL=https://developer.arm.com/-/media/Files/downloads/gnu-rm/7-2017q4/gcc-arm-none-eabi-7-2017-q4-major-linux.tar.bz2
         - if [ ! -e $GCC_DIR/bin/arm-none-eabi-g++ ]; then wget $GCC_URL -O $GCC_ARCHIVE; tar xfj $GCC_ARCHIVE -C $HOME; fi
         - export PATH=$GCC_DIR/bin:$PATH
+      script:
+        - cd $TRAVIS_BUILD_DIR/Safety
+        - ./Tools/build.bash -c
+        - cd $TRAVIS_BUILD_DIR/Autopilot
+        - ./Tools/build.bash -c
 
-    - os: osx
+
+    - os: osx # run unit tests on mac
       compiler: clang
-      env: CXX_FLAGS="-std=c++11" TARGET=Autopilot
-      cache:
-        directories:
-          - $HOME/gcc-arm-none-eabi-7-2017-q4-major
-      before_install:
+      env: CXX_FLAGS="-std=c++11"
+      install: # install google test
         - curl -LO https://github.com/google/googletest/archive/release-1.10.0.tar.gz
         - tar xf release-1.10.0.tar.gz
         - cd googletest-release-1.10.0
@@ -65,18 +64,14 @@ matrix:
         - cmake ..
         - make
         - make install
-        - cd $TRAVIS_BUILD_DIR;
-      install:
-        - export GCC_DIR=$HOME/gcc-arm-none-eabi-7-2017-q4-major
-        - export GCC_ARCHIVE=$HOME/gcc-arm-none-eabi-7-2017-q4-major-linux.tar.bz2
-        - export GCC_URL=https://developer.arm.com/-/media/Files/downloads/gnu-rm/7-2017q4/gcc-arm-none-eabi-7-2017-q4-major-mac.tar.bz2
-        - if [ ! -f $GCC_DIR/bin/arm-none-eabi-g++ ]; then wget $GCC_URL -O $GCC_ARCHIVE; tar xfj $GCC_ARCHIVE -C $HOME; fi
-        - export PATH=$GCC_DIR/bin:$PATH
+      script:
+        - cd $TRAVIS_BUILD_DIR/Autopilot
+        - ./Tools/build.bash -c -T
 
 
-    - os: osx
+    - os: osx # check if we can build for the target, from mac
       compiler: clang
-      env: CXX_FLAGS="-std=c++11" TARGET=Safety
+      env: CXX_FLAGS="-std=c++11"
       cache:
         directories:
           - $HOME/gcc-arm-none-eabi-7-2017-q4-major
@@ -86,10 +81,8 @@ matrix:
         - export GCC_URL=https://developer.arm.com/-/media/Files/downloads/gnu-rm/7-2017q4/gcc-arm-none-eabi-7-2017-q4-major-mac.tar.bz2
         - if [ ! -f $GCC_DIR/bin/arm-none-eabi-g++ ]; then wget $GCC_URL -O $GCC_ARCHIVE; tar xfj $GCC_ARCHIVE -C $HOME; fi
         - export PATH=$GCC_DIR/bin:$PATH
-
-
-
-script:
-  - cd $TRAVIS_BUILD_DIR/$TARGET
-  - ./Tools/build.bash -c
-  - if [ $TARGET = Autopilot ]; then ./Tools/build.bash -c -T; fi
+      script:
+        - cd $TRAVIS_BUILD_DIR/Safety
+        - ./Tools/build.bash -c
+        - cd $TRAVIS_BUILD_DIR/Autopilot
+        - ./Tools/build.bash -c
