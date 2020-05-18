@@ -11,15 +11,10 @@ cache:
   directories:
     - $HOME/gcc-arm-none-eabi-7-2017-q4-major
 
-addons:
-  apt:
-    packages:
-    - ninja-build
-    sources:
-    - ubuntu-toolchain-r-test
-
 before_install: >
   if [ $TRAVIS_OS_NAME = osx ]; then
+    git clone https://github.com/google/googletest
+    cd googletest
     mkdir build
     cd build
     cmake ..
@@ -29,6 +24,9 @@ before_install: >
     sudo rm -r googletest;
 
   elif [ $TRAVIS_OS_NAME = linux ]; then
+    sudo apt-get update
+    sudo apt-get install cmake
+    sudo apt-get install libgtest-dev
     cd /usr/src/gtest
     sudo cmake CMakeLists.txt
     sudo make
@@ -36,6 +34,13 @@ before_install: >
     cd $TRAVIS_BUILD_DIR;
 
   fi
+
+addons:
+  apt:
+    packages:
+    - ninja-build
+    sources:
+    - ubuntu-toolchain-r-test
 
 env:
   - TARGET=Autopilot
