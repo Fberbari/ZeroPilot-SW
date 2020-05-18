@@ -8,21 +8,20 @@ matrix:
   include:
 
     - os: linux
-    compiler: gcc
-    env: CXX_FLAGS="-std=c++11" TARGET=Autopilot
+      compiler: gcc
+      env: CXX_FLAGS="-std=c++11" TARGET=Autopilot
 
     - os: linux
-    compiler: gcc
-    env: CXX_FLAGS="-std=c++11" TARGET=Safety
+      compiler: gcc
+      env: CXX_FLAGS="-std=c++11" TARGET=Safety
 
     - os: osx
-    compiler: clang
-    env: CXX_FLAGS="-std=c++11" TARGET=Autopilot
-
+      compiler: clang
+      env: CXX_FLAGS="-std=c++11" TARGET=Autopilot
 
     - os: osx
-    compiler: clang
-    env: CXX_FLAGS="-std=c++11" TARGET=Safety
+      compiler: clang
+      env: CXX_FLAGS="-std=c++11" TARGET=Safety
 
 
 cache:
