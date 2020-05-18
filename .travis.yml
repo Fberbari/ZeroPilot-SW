@@ -20,7 +20,7 @@ matrix:
           - $HOME/gcc-arm-none-eabi-7-2017-q4-major
           - /usr/src/gtest
       before_install:
-        - if [ ! -d /usr/src/gtest ]; then apt-get install libgtest-dev; cd /usr/src/gtest; sudo cmake CMakeLists.txt; sudo make; fi 
+        - if [ ! -d /usr/src/gtest ]; then sudo apt-get install libgtest-dev; cd /usr/src/gtest; sudo cmake CMakeLists.txt; sudo make; fi 
         - cd /usr/src/gtest 
         - cp *.a /usr/lib
         - cd $TRAVIS_BUILD_DIR;
