@@ -10,25 +10,27 @@ matrix:
     - os: linux
       compiler: gcc
       env: CXX_FLAGS="-std=c++11" TARGET=Autopilot
+      cache:
+        directories:
+          - $HOME/gcc-arm-none-eabi-7-2017-q4-major
+          - /usr/include/gtest
       before_install:
-        - sudo apt-get update
-        - sudo apt-get install cmake
-        - sudo apt-get install libgtest-dev
-        - cd /usr/src/gtest
-        - sudo cmake CMakeLists.txt
-        - sudo make
-        - sudo cp *.a /usr/lib
-        - cd $TRAVIS_BUILD_DIR
-        - whereis gmock
-        - whereis gtest
+        - if [ ! -e /usr/include/gtest]; then sudo apt-get install libgtest-dev; cd /usr/src/gtest; sudo cmake CMakeLists.txt; sudo make; sudo cp *.a /usr/lib; cd $TRAVIS_BUILD_DIR; fi
 
     - os: linux
       compiler: gcc
       env: CXX_FLAGS="-std=c++11" TARGET=Safety
+      cache:
+        directories:
+          - $HOME/gcc-arm-none-eabi-7-2017-q4-major
 
     - os: osx
       compiler: clang
       env: CXX_FLAGS="-std=c++11" TARGET=Autopilot
+      cache:
+        directories:
+          - $HOME/gcc-arm-none-eabi-7-2017-q4-major
+          - /usr/include/gtest
       before_install:
         - curl -LO https://github.com/google/googletest/archive/release-1.10.0.tar.gz
         - tar xf release-1.10.0.tar.gz
@@ -38,17 +40,15 @@ matrix:
         - cmake ..
         - make
         - make install
-        - whereis gmock
-        - whereis gtest
+        - which gmock
+        - which gtest
 
     - os: osx
       compiler: clang
       env: CXX_FLAGS="-std=c++11" TARGET=Safety
-
-
-cache:
-  directories:
-    - $HOME/gcc-arm-none-eabi-7-2017-q4-major
+      cache:
+        directories:
+          - $HOME/gcc-arm-none-eabi-7-2017-q4-major
 
 addons:
   apt:
