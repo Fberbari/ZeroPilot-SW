@@ -10,6 +10,11 @@ matrix:
     - os: linux
       compiler: gcc
       env: CXX_FLAGS="-std=c++11" TARGET=Autopilot
+      addons:
+        apt:
+          packages:
+          - ninja-build
+          - cmake
       cache:
         directories:
           - $HOME/gcc-arm-none-eabi-7-2017-q4-major
@@ -20,6 +25,11 @@ matrix:
     - os: linux
       compiler: gcc
       env: CXX_FLAGS="-std=c++11" TARGET=Safety
+        addons:
+          apt:
+            packages:
+            - ninja-build
+            - cmake
       cache:
         directories:
           - $HOME/gcc-arm-none-eabi-7-2017-q4-major
@@ -40,8 +50,6 @@ matrix:
         - cmake ..
         - make
         - make install
-        - which gmock
-        - which gtest
 
     - os: osx
       compiler: clang
@@ -49,11 +57,6 @@ matrix:
       cache:
         directories:
           - $HOME/gcc-arm-none-eabi-7-2017-q4-major
-
-addons:
-  apt:
-    packages:
-    - ninja-build
 
 install:
   - export GCC_DIR=$HOME/gcc-arm-none-eabi-7-2017-q4-major
