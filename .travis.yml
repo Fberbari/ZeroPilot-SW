@@ -10,15 +10,15 @@ matrix:
     - os: linux
     compiler: gcc
     env: CXX_FLAGS="-std=c++11" TARGET=Autopilot
-    before_install:
-      - sudo apt-get update
-      - sudo apt-get install cmake
-      - sudo apt-get install libgtest-dev
-      - cd /usr/src/gtest
-      - sudo cmake CMakeLists.txt
-      - sudo make
-      - sudo cp *.a /usr/lib
-      - cd $TRAVIS_BUILD_DIR
+    before_install: >
+      sudo apt-get update
+      sudo apt-get install cmake
+      sudo apt-get install libgtest-dev
+      cd /usr/src/gtest
+      sudo cmake CMakeLists.txt
+      sudo make
+      sudo cp *.a /usr/lib
+      cd $TRAVIS_BUILD_DIR;
 
     - os: linux
     compiler: gcc
@@ -27,15 +27,15 @@ matrix:
     - os: osx
     compiler: clang
     env: CXX_FLAGS="-std=c++11" TARGET=Autopilot
-    before_install:
-      - curl -LO https://github.com/google/googletest/archive/release-1.10.0.tar.gz
-      - tar xf release-1.10.0.tar.gz
-      - cd googletest-release-1.10.0
-      - mkdir build
-      - cd build
-      - cmake ..
-      - make
-      - make install
+    before_install: >
+      curl -LO https://github.com/google/googletest/archive/release-1.10.0.tar.gz
+      tar xf release-1.10.0.tar.gz
+      cd googletest-release-1.10.0
+      mkdir build
+      cd build
+      cmake ..
+      make
+      make install;
 
     - os: osx
     compiler: clang
