@@ -43,7 +43,7 @@ matrix:
           - /usr/local/lib/gtest
           - /usr/local/include/gtest
       before_install:
-        - if [ ! -e /usr/local/lib/gtest ]; then curl -LO https://github.com/google/googletest/archive/release-1.10.0.tar.gz; tar xf release-1.10.0.tar.gz; cd googletest-release-1.10.0; mkdir build; cd build; cmake ..; make; make install; fi
+        - curl -LO https://github.com/google/googletest/archive/release-1.10.0.tar.gz; tar xf release-1.10.0.tar.gz; cd googletest-release-1.10.0; mkdir build; cd build; cmake ..; make; make install;
 
     - os: osx
       compiler: clang
