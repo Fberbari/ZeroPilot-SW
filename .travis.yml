@@ -19,6 +19,8 @@ matrix:
         - sudo make
         - sudo cp *.a /usr/lib
         - cd $TRAVIS_BUILD_DIR
+        - whereis gmock
+        - whereis gtest
 
     - os: linux
       compiler: gcc
@@ -36,6 +38,8 @@ matrix:
         - cmake ..
         - make
         - make install
+        - whereis gmock
+        - whereis gtest
 
     - os: osx
       compiler: clang
