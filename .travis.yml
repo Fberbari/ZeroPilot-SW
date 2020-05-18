@@ -23,9 +23,9 @@ matrix:
         - sudo cmake CMakeLists.txt
         - sudo make
         - sudo cp *.a /usr/lib
-    script:
-      - cd $TRAVIS_BUILD_DIR/Autopilot
-      - ./Tools/build.bash -c -T
+      script:
+        - cd $TRAVIS_BUILD_DIR/Autopilot
+        - ./Tools/build.bash -c -T
 
 
     - os: linux # check if we can build for the target, from linux
