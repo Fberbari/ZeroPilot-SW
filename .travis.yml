@@ -11,7 +11,7 @@ matrix:
 
     - os: linux # run unit tests on linux
       compiler: gcc
-      env: CXX_FLAGS="-std=c++11"
+      env: CXX_FLAGS="-std=c++11" TYPE_OF_BUILD="unit tests"
       addons:
         apt:
           packages:
@@ -30,7 +30,7 @@ matrix:
 
     - os: linux # check if we can build for the target, from linux
       compiler: gcc
-      env: CXX_FLAGS="-std=c++11"
+      env: CXX_FLAGS="-std=c++11" TYPE_OF_BUILD="for target"
       addons:
         apt:
           packages:
@@ -54,7 +54,7 @@ matrix:
 
     - os: osx # run unit tests on mac
       compiler: clang
-      env: CXX_FLAGS="-std=c++11"
+      env: CXX_FLAGS="-std=c++11" TYPE_OF_BUILD="unit tests"
       install: # install google test
         - curl -LO https://github.com/google/googletest/archive/release-1.10.0.tar.gz
         - tar xf release-1.10.0.tar.gz
@@ -71,7 +71,7 @@ matrix:
 
     - os: osx # check if we can build for the target, from mac
       compiler: clang
-      env: CXX_FLAGS="-std=c++11"
+      env: CXX_FLAGS="-std=c++11" TYPE_OF_BUILD="for target"
       cache:
         directories:
           - $HOME/gcc-arm-none-eabi-7-2017-q4-major
