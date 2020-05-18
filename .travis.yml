@@ -92,6 +92,7 @@ matrix:
       env: TYPE_OF_BUILD="for target" CXX_FLAGS="-std=c++11"
       install:
         - wget --no-check-certificate https://developer.arm.com/-/media/Files/downloads/gnu-rm/7-2017q4/gcc-arm-none-eabi-7-2017-q4-major-win32.zip -O $HOME/zippedCompiler
+        - mkdir $HOME/gcc-arm-none-eabi-7-2017-q4-major
         - 7z e $HOME/zippedCompiler/gcc-arm-none-eabi-7-2017-q4-major-win32.zip -o $HOME/gcc-arm-none-eabi-7-2017-q4-major
         - set PATH=%PATH%; $HOME/gcc-arm-none-eabi-7-2017-q4-major/bin/
       script:
