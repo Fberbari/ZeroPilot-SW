@@ -13,7 +13,7 @@ cache:
     - $HOME/gcc-arm-none-eabi-7-2017-q4-major
 
 before_install: >
-  - if [ $TRAVIS_OS_NAME = osx ]; then
+  if [ $TRAVIS_OS_NAME = osx ]; then
     git clone https://github.com/google/googletest
     cd googletest
     mkdir build
@@ -23,9 +23,8 @@ before_install: >
     make install
     cd ../..
     sudo rm -r googletest;
-  fi
 
-  - if [ $TRAVIS_OS_NAME = linux ]; then
+  elif [ $TRAVIS_OS_NAME = linux ]; then
     sudo apt-get update
     sudo apt-get install cmake
     sudo apt-get install libgtest-dev
@@ -34,6 +33,7 @@ before_install: >
     sudo make
     sudo cp *.a /usr/lib
     cd $TRAVIS_BUILD_DIR;
+
   fi
 
 addons:
