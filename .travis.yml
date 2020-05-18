@@ -3,12 +3,9 @@
 language: cpp
 sudo: true
 
-matrix:
-  include:
-    - os: osx
-      env:
-        - MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7"
-    - os: linux
+os:
+  - osx
+  - linux
 
 cache:
   directories:
@@ -26,6 +23,7 @@ env:
 # install cmake and google test for both linux and osx. TODO: these should be cached
 before_install: >
   if [ $TRAVIS_OS_NAME = osx ]; then
+    brew install gcc && CC=gcc-7 && CXX=g++-7
     git clone https://github.com/google/googletest
     cd googletest
     mkdir build
