@@ -23,15 +23,14 @@ env:
 # install cmake and google test for both linux and osx. TODO: these should be cached
 before_install: >
   if [ $TRAVIS_OS_NAME = osx ]; then
-    git clone https://github.com/google/googletest
-    cd googletest
+    curl -LO https://github.com/google/googletest/archive/release-1.10.0.tar.gz
+    tar xf release-1.10.0.tar.gz
+    cd googletest-release-1.8.0
     mkdir build
     cd build
     cmake ..
     make
-    make install
-    cd ../..
-    sudo rm -r googletest;
+    make install;
 
   elif [ $TRAVIS_OS_NAME = linux ]; then
     sudo apt-get update
