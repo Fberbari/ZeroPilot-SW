@@ -59,7 +59,7 @@ matrix:
         - export GCC_DIR=$HOME/gcc-arm-none-eabi-7-2017-q4-major
         - export GCC_ARCHIVE=$HOME/gcc-arm-none-eabi-7-2017-q4-major-linux.tar.bz2
         - export GCC_URL=https://developer.arm.com/-/media/Files/downloads/gnu-rm/7-2017q4/gcc-arm-none-eabi-7-2017-q4-major-mac.tar.bz2
-        - wget $GCC_URL -O $GCC_ARCHIVE; tar xfj $GCC_ARCHIVE -C $HOME;
+        - if [ ! -f $GCC_DIR/bin/arm-none-eabi-g++ ]; then echo "that's lit fam"; wget $GCC_URL -O $GCC_ARCHIVE; tar xfj $GCC_ARCHIVE -C $HOME; fi
         - export PATH=$GCC_DIR/bin:$PATH
 
 
