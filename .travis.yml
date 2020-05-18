@@ -102,5 +102,5 @@ matrix:
       script:
         - cd $TRAVIS_BUILD_DIR/Safety
         - ./Tools/build.bash -c
-        - cd $TRAVIS_BUILD_DIR/Autopilot
-        - ./Tools/build.bash -c
+        - type C:/Users/travis/build/Fberbari/ZeroPilot-SW/Safety/build/CMakeFiles/CMakeOutput.log
+        - type C:/Users/travis/build/Fberbari/ZeroPilot-SW/Safety/build/CMakeFiles/CMakeError.log
