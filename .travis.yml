@@ -3,36 +3,26 @@
 language: cpp
 sudo: true
 
-matrix:
-  include:
-
-    - os: linux
-    compiler: gcc
-    env: CXX_FLAGS="-std=c++1 TARGET=Autopilot
-
-    - os: linux
-    compiler: gcc
-    env: CXX_FLAGS="-std=c++1 TARGET=Safety
-
-    - os: osx
-    compiler: clang
-    env: CXX_FLAGS="-std=c++1 TARGET=Autopilot
-
-    - os: osx
-    compiler: clang
-    env: CXX_FLAGS="-std=c++1 TARGET=Safety
-
-
+os:
+  - osx
+  - linux
 
 cache:
   directories:
     - $HOME/gcc-arm-none-eabi-7-2017-q4-major
 
+addons:
+  apt:
+    packages:
+    - ninja-build
+
+env:
+  - TARGET=Autopilot CXX_FLAGS="-std=c++1"
+  - TARGET=Safety CXX_FLAGS="-std=c++1"
 
 # install cmake and google test for both linux and osx. TODO: these should be cached
 before_install: >
   if [ $TRAVIS_OS_NAME = osx ]; then
-    brew install gcc && CC=gcc-7 && CXX=g++-7
     git clone https://github.com/google/googletest
     cd googletest
     mkdir build
