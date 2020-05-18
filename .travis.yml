@@ -12,7 +12,7 @@ cache:
   directories:
     - $HOME/gcc-arm-none-eabi-7-2017-q4-major
 
-before_install:
+before_install: >
   - if [ $TRAVIS_OS_NAME = osx ]; then
     git clone https://github.com/google/googletest
     cd googletest
