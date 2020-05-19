@@ -115,6 +115,9 @@ matrix:
         - mkdir build
         - cd build
         - cmake ..
+        - ls
+        - cd ..
+        - ls
         - make
         - make install
       script:
