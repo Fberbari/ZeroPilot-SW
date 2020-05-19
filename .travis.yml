@@ -104,6 +104,7 @@ matrix:
     - os: windows
       env: TYPE_OF_BUILD="unit tests" CXX_FLAGS="-std=c++11"
       before install:
+        - choco uninstall visualstudio2017-workload-vctools
         - choco upgrade make
         - choco upgrade cmake
       install:
