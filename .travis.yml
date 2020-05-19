@@ -106,7 +106,6 @@ matrix:
       before install:
         - choco upgrade make
         - choco upgrade cmake
-        - choco upgrade msys
       install:
         - mkdir $HOME/gtest
         - cd $HOME/gtest
