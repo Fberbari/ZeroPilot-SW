@@ -89,7 +89,7 @@ matrix:
 
 
     - os: windows
-      env: TYPE_OF_BUILD="for target" CXX_FLAGS="-std=c++11" CC=
+      env: TYPE_OF_BUILD="for target" CXX_FLAGS="-std=c++11"
       before install:
         - choco upgrade cmake
       install:
@@ -99,5 +99,22 @@ matrix:
         - ./Tools/build.bash -c
         - cd $TRAVIS_BUILD_DIR/Safety
         - ./Tools/build.bash -c
-        - type C:/Users/travis/build/Fberbari/ZeroPilot-SW/Safety/build/CMakeFiles/CMakeOutput.log
-        - type C:/Users/travis/build/Fberbari/ZeroPilot-SW/Safety/build/CMakeFiles/CMakeError.log
+
+
+    - os: windows
+      env: TYPE_OF_BUILD="unit tests" CXX_FLAGS="-std=c++11"
+      before install:
+        - choco upgrade cmake
+      install:
+        - curl -LO https://github.com/google/googletest/archive/release-1.10.0.tar.gz
+        - tar xf release-1.10.0.tar.gz
+        - cd googletest-release-1.10.0
+        - mkdir build
+        - cd build
+        - cmake ..
+        - make
+        - make install
+      script:
+        - cd $TRAVIS_BUILD_DIR/Autopilot
+        - ./Tools/build.bash -c -T
+
