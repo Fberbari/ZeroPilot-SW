@@ -102,7 +102,7 @@ matrix:
 
 
     - os: windows
-      env: TYPE_OF_BUILD="unit tests" CXX_FLAGS="-std=c++11" CC=gcc CXX=g++
+      env: TYPE_OF_BUILD="unit tests" CXX_FLAGS="-std=c++11" CMAKE_C_COMPILER=gcc CMAKE_CXX_COMPILER=g++
       before install:
         - choco upgrade make
         - choco upgrade cmake
@@ -120,4 +120,6 @@ matrix:
       script:
         - cd $TRAVIS_BUILD_DIR/Autopilot
         - ./Tools/build.bash -c -T
+        - type C:/Users/travis/build/Fberbari/ZeroPilot-SW/Autopilot/testBuild/CMakeFiles/CMakeOutput.log
+        - type C:/Users/travis/build/Fberbari/ZeroPilot-SW/Autopilot/testBuild/CMakeFiles/CMakeError.log
 
