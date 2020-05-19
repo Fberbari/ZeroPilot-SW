@@ -106,8 +106,10 @@ matrix:
       before install:
         - choco upgrade cmake
       install:
-        - curl -LO https://github.com/google/googletest/archive/release-1.10.0.tar.gz
-        - tar xf release-1.10.0.tar.gz
+        - mkdir $HOME/gtest
+        - cd $HOME/gtest
+        - wget https://github.com/google/googletest/archive/release-1.10.0.zip
+        - 7z x release-1.10.0.zip -r
         - cd googletest-release-1.10.0
         - mkdir build
         - cd build
