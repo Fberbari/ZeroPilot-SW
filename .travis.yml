@@ -106,6 +106,7 @@ matrix:
       before install:
         - choco upgrade make
         - choco upgrade cmake
+        - choco upgrade msys
       install:
         - mkdir $HOME/gtest
         - cd $HOME/gtest
@@ -114,7 +115,7 @@ matrix:
         - cd googletest-release-1.10.0
         - mkdir build
         - cd build
-        - cmake ..
+        - cmake -G "MSYS Makefiles" ..
         - ls
         - cd ..
         - ls
