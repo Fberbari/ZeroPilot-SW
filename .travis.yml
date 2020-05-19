@@ -104,6 +104,7 @@ matrix:
     - os: windows
       env: TYPE_OF_BUILD="unit tests" CXX_FLAGS="-std=c++11"
       before install:
+        - choco upgrade make
         - choco upgrade cmake
       install:
         - mkdir $HOME/gtest
