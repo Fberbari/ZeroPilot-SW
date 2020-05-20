@@ -89,7 +89,7 @@ matrix:
 
 
     - os: windows # run unit tests on Windows
-      env: TYPE_OF_BUILD="unit tests" CXX_FLAGS="-std=c++11"
+      env: TYPE_OF_BUILD="unit tests" CXX_FLAGS="-std=c++11" GTEST_ROOT="C:/Program Files (x86)/googletest-distribution/"
       before install:
         - choco upgrade make
         - choco upgrade cmake
