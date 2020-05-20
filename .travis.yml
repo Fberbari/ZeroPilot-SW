@@ -102,7 +102,7 @@ matrix:
 
 
     - os: windows
-      env: TYPE_OF_BUILD="unit tests" CXX_FLAGS="-std=c++11" CMAKE_C_COMPILER=gcc CMAKE_CXX_COMPILER=g++
+      env: TYPE_OF_BUILD="unit tests" CXX_FLAGS="-std=c++11" GTEST_ROOT="C:/Program Files/gtest"
       before install:
         - choco uninstall -n visualstudio2017-workload-netcorebuildtools
         - choco uninstall -n visualstudio2017-workload-vctools
@@ -121,6 +121,7 @@ matrix:
         - cd build
         - cmake -G "MSYS Makefiles" ..
         - make
+        - make install
         - cd lib
         - cp *.a /usr/lib
       script:
