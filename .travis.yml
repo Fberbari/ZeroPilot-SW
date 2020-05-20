@@ -122,6 +122,6 @@ matrix:
         - echo %PATH%
       script:
         - cd $TRAVIS_BUILD_DIR/Autopilot
-        - cmake -G "MSYS Makefiles"
+        - ./Tools/build.bash -c -T
         - type C:/Users/travis/build/Fberbari/ZeroPilot-SW/Autopilot/testBuild/CMakeFiles/CMakeOutput.log
         - type C:/Users/travis/build/Fberbari/ZeroPilot-SW/Autopilot/testBuild/CMakeFiles/CMakeError.log

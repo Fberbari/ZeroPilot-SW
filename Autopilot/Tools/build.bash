@@ -123,13 +123,7 @@ else
     cmake -E remove_directory $BUILD_DIR
     fi
 
-    if command -v ninja >/dev/null 2>&1; then
-        GENERATOR="Ninja"
-    elif command -v make >/dev/null 2>&1; then
-        GENERATOR="Unix Makefiles"
-    elif command -v mingw32-make >/dev/null 2>&1; then
-        GENERATOR="MinGW Makefiles"
-    fi
+    GENERATOR= "MSYS Makefiles"
 
     cmake -E make_directory $BUILD_DIR
     cmake -E chdir $BUILD_DIR \
