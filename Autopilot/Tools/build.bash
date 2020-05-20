@@ -128,6 +128,7 @@ else
     cmake -E make_directory $BUILD_DIR
     cmake -E chdir $BUILD_DIR \
       cmake \
+        -G "${GENERATOR}" \
         -Wdev\
         -Wdeprecated\
         ../
