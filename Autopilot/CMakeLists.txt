@@ -102,6 +102,11 @@ else()
   set(CMAKE_CXX_STANDARD 11)
   set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+  # Required to allow us to point to the gtest directory using an environement variable. (This has only been an issue on the windows CI)
+  if(POLICY CMP0074)
+    cmake_policy(SET CMP0074 NEW)
+  endif()
+
   include_directories(
     SYSTEM ${CMAKE_CURRENT_SOURCE_DIR}/Inc/
     SYSTEM ${CMAKE_CURRENT_SOURCE_DIR}/Libraries/STM32F7xx_HAL_Driver/Inc
