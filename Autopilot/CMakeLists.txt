@@ -107,11 +107,8 @@ else()
     cmake_policy(SET CMP0074 NEW)
   endif()
 
-  set(CMAKE_C_COMPILER C:/ProgramData/chocolatey/bin/gcc.exe)
-  set(CMAKE_CXX_COMPILER C:/ProgramData/chocolatey/bin/g++.exe)
-
-  set(GTEST_LIBRARY "C:/Program Files (x86)/googletest-distribution/lib/libgtest.a")
-  set( GTEST_MAIN_LIBRARY "C:/Program Files (x86)/googletest-distribution/lib/libgtest_main.a")
+  #set(GTEST_LIBRARY "C:/Program Files (x86)/googletest-distribution/lib/libgtest.a")
+  #set( GTEST_MAIN_LIBRARY "C:/Program Files (x86)/googletest-distribution/lib/libgtest_main.a")
 
   include_directories(
     SYSTEM ${CMAKE_CURRENT_SOURCE_DIR}/Inc/
