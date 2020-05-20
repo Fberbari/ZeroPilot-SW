@@ -115,7 +115,7 @@ matrix:
         - cd googletest-release-1.10.0
         - mkdir build
         - cd build
-        - cmake -G "MSYS Makefiles" ..
+        - cmake ..
         - make
         - make install
         - echo $PATH
