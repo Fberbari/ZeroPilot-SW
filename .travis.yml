@@ -105,7 +105,7 @@ matrix:
       env: TYPE_OF_BUILD="unit tests" CXX_FLAGS="-std=c++11" CMAKE_C_COMPILER=gcc CMAKE_CXX_COMPILER=g++
       before install:
         - choco uninstall -n microsoft-build-tools
-        - choco uninstall -n visualstudio2017buildtools
+        - choco uninstall -n --skip-autouninstaller visualstudio2017buildtools
         - choco upgrade make
         - choco upgrade cmake
       install:
@@ -124,4 +124,3 @@ matrix:
         - ./Tools/build.bash -c -T
         - type C:/Users/travis/build/Fberbari/ZeroPilot-SW/Autopilot/testBuild/CMakeFiles/CMakeOutput.log
         - type C:/Users/travis/build/Fberbari/ZeroPilot-SW/Autopilot/testBuild/CMakeFiles/CMakeError.log
-
