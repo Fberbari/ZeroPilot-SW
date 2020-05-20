@@ -123,7 +123,7 @@ else
     cmake -E remove_directory $BUILD_DIR
     fi
 
-    GENERATOR= "MSYS Makefiles"
+    GENERATOR="Ninja"
 
     cmake -E make_directory $BUILD_DIR
     cmake -E chdir $BUILD_DIR \
