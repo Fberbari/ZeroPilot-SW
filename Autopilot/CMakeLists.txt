@@ -95,12 +95,15 @@ else()
     -DARM_MATH_CM7
   )
 
-  #required to get some of the CMSIS libraries to compile
+  # Required to get some of the CMSIS libraries to compile
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpermissive -fms-extensions")
 
-  #Google tests was built for c++11
+  # Google tests was built for c++11
   set(CMAKE_CXX_STANDARD 11)
   set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+  # Required to allow us to point to the gtest directory using an environement variable. (This has only been an issue on the windows CI)
+  cmake_policy(SET CMP0074 NEW)
 
   include_directories(
     SYSTEM ${CMAKE_CURRENT_SOURCE_DIR}/Inc/
