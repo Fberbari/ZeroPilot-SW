@@ -134,7 +134,7 @@ set_property(SOURCE ${CXX_SOURCES} PROPERTY COMPILE_FLAGS "-Wall -Wextra -g")
 set_property(SOURCE ${UNIT_TEST_SOURCES} PROPERTY COMPILE_FLAGS "-Wall -Wextra -g")
 
 # Locate GTest
-find_package(gTest REQUIRED)
+find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})
 
 # Link runTests with what we want to test and the GTest and pthread library
