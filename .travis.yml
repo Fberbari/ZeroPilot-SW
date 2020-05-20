@@ -102,7 +102,7 @@ matrix:
 
 
     - os: windows
-      env: TYPE_OF_BUILD="unit tests" CXX_FLAGS="-std=c++11" GTEST_ROOT="C:/Program Files (x86)/googletest-distribution/" GTEST_LIBRARY="C:/Program Files (x86)/googletest-distribution/lib/" GTEST_MAIN_LIBRARY="/usr/lib" GTEST_INCLUDE_DIR="C:/Program Files (x86)/googletest-distribution/include"
+      env: TYPE_OF_BUILD="unit tests" CXX_FLAGS="-std=c++11" GTEST_ROOT="C:/Program Files (x86)/googletest-distribution/" GTEST_LIBRARY="C:/Program Files (x86)/googletest-distribution/lib/" GTEST_MAIN_LIBRARY="C:/Program Files (x86)/googletest-distribution/lib/" GTEST_INCLUDE_DIR="C:/Program Files (x86)/googletest-distribution/include"
       before install:
         - choco uninstall -n visualstudio2017-workload-netcorebuildtools
         - choco uninstall -n visualstudio2017-workload-vctools
