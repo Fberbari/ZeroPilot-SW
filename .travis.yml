@@ -102,9 +102,8 @@ matrix:
 
 
     - os: windows
-      env: TYPE_OF_BUILD="unit tests" CXX_FLAGS="-std=c++11" GTEST_ROOT="C:/Program Files (x86)/googletest-distribution/" GTEST_LIBRARY="C:/Program Files (x86)/googletest-distribution/lib/libgtest.a" GTEST_MAIN_LIBRARY="C:/Program Files (x86)/googletest-distribution/lib/libgtest_main.a"
+      env: TYPE_OF_BUILD="unit tests" CXX_FLAGS="-std=c++11" GTEST_ROOT="C:/Program Files (x86)/googletest-distribution/"
       before install:
-        - choco upgrade make
         - choco upgrade cmake
         - choco upgrade mingw
         - choco install ninja
