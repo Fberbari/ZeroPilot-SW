@@ -123,5 +123,3 @@ matrix:
       script:
         - cd $TRAVIS_BUILD_DIR/Autopilot
         - ./Tools/build.bash -c -T
-        - type C:/Users/travis/build/Fberbari/ZeroPilot-SW/Autopilot/testBuild/CMakeFiles/CMakeOutput.log
-        - type C:/Users/travis/build/Fberbari/ZeroPilot-SW/Autopilot/testBuild/CMakeFiles/CMakeError.log
