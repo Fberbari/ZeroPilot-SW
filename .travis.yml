@@ -104,6 +104,8 @@ matrix:
     - os: windows
       env: TYPE_OF_BUILD="unit tests" CXX_FLAGS="-std=c++11" CMAKE_C_COMPILER=gcc CMAKE_CXX_COMPILER=g++
       before install:
+        - choco uninstall microsoft-build-tools
+        - choco uninstall visualstudio2017buildtools
         - choco upgrade make
         - choco upgrade cmake
       install:
