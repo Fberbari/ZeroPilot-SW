@@ -102,7 +102,7 @@ matrix:
 
 
     - os: windows
-      env: TYPE_OF_BUILD="unit tests" CXX_FLAGS="-std=c++11" CMAKE_C_COMPILER=gcc CMAKE_CXX_COMPILER=g++ GTEST_ROOT="/usr/gtest/lib"
+      env: TYPE_OF_BUILD="unit tests" CXX_FLAGS="-std=c++11" CMAKE_C_COMPILER=gcc CMAKE_CXX_COMPILER=g++ GTEST_ROOT="/usr/lib/gtest"
       before install:
         - choco uninstall -n visualstudio2017-workload-netcorebuildtools
         - choco uninstall -n visualstudio2017-workload-vctools
@@ -124,8 +124,8 @@ matrix:
         - ls
         - cd lib
         - ls
-        - mkdir /usr/gtest
-        - cp lib*.a /usr/gtest/lib
+        - mkdir /usr/lib/gtest
+        - cp lib*.a /usr/lib/gtest
       script:
         - cd $TRAVIS_BUILD_DIR/Autopilot
         - ./Tools/build.bash -c -T
