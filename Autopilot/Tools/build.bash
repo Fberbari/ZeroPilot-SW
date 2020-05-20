@@ -55,15 +55,15 @@ while getopts "c,t,h,f,r,T" opt; do
     esac
 done
 
-if [[ $RUN_UNIT_TESTS == false ]]; then
+if command -v ninja >/dev/null 2>&1; then
+    GENERATOR="Ninja"
+elif command -v make >/dev/null 2>&1; then
+    GENERATOR="Unix Makefiles"
+elif command -v mingw32-make >/dev/null 2>&1; then
+    GENERATOR="MinGW Makefiles"
+fi
 
-    if command -v ninja >/dev/null 2>&1; then
-        GENERATOR="Ninja"
-    elif command -v make >/dev/null 2>&1; then
-        GENERATOR="Unix Makefiles"
-    elif command -v mingw32-make >/dev/null 2>&1; then
-        GENERATOR="MinGW Makefiles"
-    fi
+if [[ $RUN_UNIT_TESTS == false ]]; then
 
     die() {
         echo ""
@@ -122,8 +122,6 @@ else
     echo "Cleaning old build environment"
     cmake -E remove_directory $BUILD_DIR
     fi
-
-    GENERATOR="Ninja"
 
     cmake -E make_directory $BUILD_DIR
     cmake -E chdir $BUILD_DIR \
