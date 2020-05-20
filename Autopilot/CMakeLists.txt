@@ -107,6 +107,9 @@ else()
     cmake_policy(SET CMP0074 NEW)
   endif()
 
+  set(CMAKE_C_COMPILER C:/ProgramData/chocolatey/bin/gcc.exe)
+  set(CMAKE_CXX_COMPILER C:/ProgramData/chocolatey/bin/g++.exe)
+
   include_directories(
     SYSTEM ${CMAKE_CURRENT_SOURCE_DIR}/Inc/
     SYSTEM ${CMAKE_CURRENT_SOURCE_DIR}/Libraries/STM32F7xx_HAL_Driver/Inc
