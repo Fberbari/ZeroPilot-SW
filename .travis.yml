@@ -107,6 +107,7 @@ matrix:
         - choco upgrade make
         - choco upgrade cmake
         - choco upgrade mingw
+        - set PATH=%PATH:/c/Program Files/dotnet;=%
       install:
         - mkdir $HOME/gtest
         - cd $HOME/gtest
