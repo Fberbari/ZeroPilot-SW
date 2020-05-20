@@ -122,9 +122,9 @@ matrix:
         - cmake -G "MSYS Makefiles" ..
         - make
         - ls
-        - cd ..
+        - cd lib
         - ls
-        - cp build/lib*.a /usr/local/lib
+        - cp lib*.a /usr/local/lib
       script:
         - cd $TRAVIS_BUILD_DIR/Autopilot
         - ./Tools/build.bash -c -T
