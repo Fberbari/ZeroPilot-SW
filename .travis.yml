@@ -104,18 +104,9 @@ matrix:
     - os: windows
       env: TYPE_OF_BUILD="unit tests" CXX_FLAGS="-std=c++11" GTEST_ROOT="C:/Program Files (x86)/googletest-distribution/" GTEST_LIBRARY="C:/Program Files (x86)/googletest-distribution/lib/libgtest.a" GTEST_MAIN_LIBRARY="C:/Program Files (x86)/googletest-distribution/lib/libgtest_main.a"
       before install:
-        - rm -rf C:/tools/msys64
-        - choco uninstall -y mingw
-        - choco upgrade --no-progress -y msys2
-        - export msys2='cmd //C RefreshEnv.cmd '
-        - export msys2+='& set MSYS=winsymlinks:nativestrict '
-        - export msys2+='& C:\\tools\\msys64\\msys2_shell.cmd -defterm -no-start'
-        - export msys2+=" -msys2 -c "\"\$@"\" --"
-        - pacman --sync --noconfirm --needed mingw-w64-x86_64-toolchain
-        - taskkill //IM gpg-agent.exe //F
-        - export PATH=/C/tools/msys64/mingw64/bin:$PATH
-        - export MAKE=mingw32-make
+        - choco upgrade make
         - choco upgrade cmake
+        - choco upgrade mingw
       install:
         - mkdir $HOME/gtest
         - cd $HOME/gtest

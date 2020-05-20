@@ -110,6 +110,9 @@ else()
   #set(GTEST_LIBRARY "C:/Program Files (x86)/googletest-distribution/lib/libgtest.a")
   #set( GTEST_MAIN_LIBRARY "C:/Program Files (x86)/googletest-distribution/lib/libgtest_main.a")
 
+  set(CMAKE_C_COMPILER gcc CACHE STRING "C compiler" FORCE)
+  set(CMAKE_CXX_COMPILER g++ CACHE STRING "C++ compiler" FORCE)
+
   include_directories(
     SYSTEM ${CMAKE_CURRENT_SOURCE_DIR}/Inc/
     SYSTEM ${CMAKE_CURRENT_SOURCE_DIR}/Libraries/STM32F7xx_HAL_Driver/Inc
