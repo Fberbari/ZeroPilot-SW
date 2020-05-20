@@ -17,7 +17,7 @@ matrix:
           packages:
           - ninja-build
           - cmake
-      install: # install google test
+      install:
         - sudo apt-get install libgtest-dev
         - cd /usr/src/gtest
         - sudo cmake CMakeLists.txt
@@ -88,22 +88,10 @@ matrix:
         - ./Tools/build.bash -c
 
 
-    - os: windows
-      env: TYPE_OF_BUILD="for target" CXX_FLAGS="-std=c++11"
-      before install:
-        - choco upgrade cmake
-      install:
-        - choco install gcc-arm-embedded
-      script:
-        - cd $TRAVIS_BUILD_DIR/Autopilot
-        - ./Tools/build.bash -c
-        - cd $TRAVIS_BUILD_DIR/Safety
-        - ./Tools/build.bash -c
-
-
-    - os: windows
+    - os: windows # run unit tests on Windows
       env: TYPE_OF_BUILD="unit tests" CXX_FLAGS="-std=c++11" GTEST_ROOT="C:/Program Files (x86)/googletest-distribution/"
       before install:
+        - choco upgrade make
         - choco upgrade cmake
         - choco upgrade mingw
         - choco install ninja
@@ -121,3 +109,16 @@ matrix:
       script:
         - cd $TRAVIS_BUILD_DIR/Autopilot
         - ./Tools/build.bash -c -T
+
+
+    - os: windows # check if we can build for the target, from Windows
+      env: TYPE_OF_BUILD="for target" CXX_FLAGS="-std=c++11"
+      before install:
+        - choco upgrade cmake
+      install:
+        - choco install gcc-arm-embedded
+      script:
+        - cd $TRAVIS_BUILD_DIR/Autopilot
+        - ./Tools/build.bash -c
+        - cd $TRAVIS_BUILD_DIR/Safety
+        - ./Tools/build.bash -c
