@@ -8,7 +8,7 @@
 /* https://github.com/google/googletest/blob/master/googletest/docs/primer.md */
 /* https://github.com/google/googletest/blob/master/googlemock/README.md */
 
-
+#include "gpsMock.hpp"
 /*
 * This file exists because there is a partial implementation of the altimeter driver. That implementation attempts to speak
 * with hardware, which obviously can't happen on a PC. So the hardware functions are faked to allow the code to run off target.
