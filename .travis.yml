@@ -99,7 +99,7 @@ matrix:
 
 
     - os: windows # run unit tests on Windows
-      env: TYPE_OF_BUILD="unit tests" CXX_FLAGS="-std=c++11" GTEST_ROOT="C:/Program Files (x86)/googletest-distribution/"
+      env: TYPE_OF_BUILD="unit tests" CXX_FLAGS="-std=c++11" GTEST_ROOT="C:/Program Files (x86)/googletest-distribution/" GMOCK_ROOT="C:/Program Files (x86)/googletest-distribution/"
       before install:
         - choco upgrade make
         - choco upgrade cmake
@@ -113,7 +113,7 @@ matrix:
         - cd googletest-release-1.10.0
         - mkdir build
         - cd build
-        - cmake -G "MSYS Makefiles" -DBUILD_GMOCK=On ..
+        - cmake -G "MSYS Makefiles" ..
         - make
         - make install
       script:
