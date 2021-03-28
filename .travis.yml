@@ -112,8 +112,6 @@ matrix:
         - cd build
         - cmake -G "MSYS Makefiles" ..
         - make
-        - pwd
-        - make install
       script:
         - cd $TRAVIS_BUILD_DIR/Autopilot
         - ./Tools/build.bash -c -t
