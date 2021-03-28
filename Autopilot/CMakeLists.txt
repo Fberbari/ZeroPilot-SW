@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.2.0)
+cmake_minimum_required(VERSION 3.20.0)
 project(Autopilot C CXX ASM)
 
 #checks wether we are building for the microcontroller or to run the PC based unit tests
