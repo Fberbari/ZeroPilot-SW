@@ -114,6 +114,7 @@ matrix:
         - cmake -G "MSYS Makefiles" ..
         - make
         - echo $CMAKE_INSTALL_PREFIX
+        - cat googletest/CMakeFiles/gtest.dir/compiler_depend.make
         - make install
       script:
         - cd $TRAVIS_BUILD_DIR/Autopilot
