@@ -96,7 +96,7 @@ matrix:
 
 
     - os: windows # run unit tests on Windows
-      env: TYPE_OF_BUILD="unit tests" CXX_FLAGS="-std=c++11" GTEST_ROOT="C:/Program Files (x86)/googletest-distribution/" GMOCK_ROOT="C:/Program Files (x86)/googletest-distribution/" CMAKE_INSTALL_PREFIX="C:/Program Files (x86)/googletest-distribution"
+      env: TYPE_OF_BUILD="unit tests" CXX_FLAGS="-std=c++11" GTEST_ROOT="C:/Program Files (x86)/googletest-distribution/" GMOCK_ROOT="C:/Program Files (x86)/googletest-distribution/" CMAKE_INSTALL_PREFIX="$Home/gtestInstallDir"
       before install:
         - choco upgrade make
         - choco upgrade cmake
@@ -104,6 +104,7 @@ matrix:
         - choco install ninja
       install:
         - mkdir $HOME/gtest
+        - mkdir $Home/gtestInstallDir
         - cd $HOME/gtest
         - wget https://github.com/google/googletest/archive/release-1.10.0.zip
         - 7z x release-1.10.0.zip -r
