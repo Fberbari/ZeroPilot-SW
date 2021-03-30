@@ -100,7 +100,10 @@ matrix:
         - TYPE_OF_BUILD="unit tests"
         - CXX_FLAGS="-std=c++11"
         - GTEST_INCLUDE_DIRS="$HOME/gtest/googletest-release-1.10.0/googletest/include/gtest"
+        - GTEST_INCLUDE_DIR="$HOME/gtest/googletest-release-1.10.0/googletest/include/gtest"
         - GTEST_LIBRARIES="$HOME/gtest/googletest-release-1.10.0/build/lib/libgtest.a"
+        - GTEST_LIBRARY="$HOME/gtest/googletest-release-1.10.0/build/lib/libgtest.a"
+        - GTEST_MAIN_LIBRARY="$HOME/gtest/googletest-release-1.10.0/build/lib/libgtest.a"
       before install:
         - choco upgrade make
         - choco upgrade cmake
