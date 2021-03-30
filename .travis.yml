@@ -96,7 +96,7 @@ matrix:
 
 
     - os: windows # run unit tests on Windows
-      env: TYPE_OF_BUILD="unit tests" CXX_FLAGS="-std=c++11" GTEST_ROOT="C:/Program Files (x86)/googletest-distribution/" GMOCK_ROOT="C:/Program Files (x86)/googletest-distribution/"
+      env: TYPE_OF_BUILD="unit tests" CXX_FLAGS="-std=c++11"
       before install:
         - choco upgrade make
         - choco upgrade cmake
@@ -109,7 +109,11 @@ matrix:
         - cd googletest-release-1.10.0
         - mkdir build
         - cd build
-        - cmake -G "MSYS Makefiles" --build --target INSTALL ..
+        - cmake -G "MSYS Makefiles" ..
+        - make
+        - setx GTEST_INCLUDE_DIRS="$HOME/gtest/googletest-release-1.10.0/googletest/include/gtest"
+        - setx GTEST_LIBRARIES="$HOME/gtest/googletest-release-1.10.0/build/lib/libgtest.a"
+        - setx GTEST_BOTH_LIBRARIES="$HOME/gtest/googletest-release-1.10.0/build/lib/libgtest.a"
       script:
         - cd $TRAVIS_BUILD_DIR/Autopilot
         - ./Tools/build.bash -c -t
