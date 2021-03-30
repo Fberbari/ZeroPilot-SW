@@ -104,7 +104,6 @@ matrix:
       before install:
         - choco upgrade make
         - choco upgrade cmake
-        - choco upgrade mingw
       install:
         - mkdir $HOME/gtest
         - cd $HOME/gtest
