@@ -96,15 +96,13 @@ matrix:
 
 
     - os: windows # run unit tests on Windows
-      env: TYPE_OF_BUILD="unit tests" CXX_FLAGS="-std=c++11" GTEST_ROOT="C:/Program Files (x86)/googletest-distribution/" GMOCK_ROOT="C:/Program Files (x86)/googletest-distribution/" CMAKE_INSTALL_PREFIX="$Home/gtestInstallDir"
+      env: TYPE_OF_BUILD="unit tests" CXX_FLAGS="-std=c++11" GTEST_ROOT="C:/Program Files (x86)/googletest-distribution/" GMOCK_ROOT="C:/Program Files (x86)/googletest-distribution/"
       before install:
         - choco upgrade make
         - choco upgrade cmake
         - choco upgrade mingw
-        - choco install ninja
       install:
         - mkdir $HOME/gtest
-        - mkdir $Home/gtestInstallDir
         - cd $HOME/gtest
         - wget https://github.com/google/googletest/archive/release-1.10.0.zip
         - 7z x release-1.10.0.zip -r
@@ -112,10 +110,7 @@ matrix:
         - mkdir build
         - cd build
         - cmake -G "MSYS Makefiles" ..
-        - make
-        - echo $CMAKE_INSTALL_PREFIX
-        - cat googletest/CMakeFiles/gtest.dir/compiler_depend.make
-        - make install
+        - cmake --build . --target INSTALL --config Debug
       script:
         - cd $TRAVIS_BUILD_DIR/Autopilot
         - ./Tools/build.bash -c -t
