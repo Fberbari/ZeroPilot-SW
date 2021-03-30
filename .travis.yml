@@ -109,8 +109,7 @@ matrix:
         - cd googletest-release-1.10.0
         - mkdir build
         - cd build
-        - cmake -G "MSYS Makefiles" ..
-        - cmake --build . --target INSTALL --config Debug
+        - cmake -G "MSYS Makefiles" --build --target INSTALL ..
       script:
         - cd $TRAVIS_BUILD_DIR/Autopilot
         - ./Tools/build.bash -c -t
